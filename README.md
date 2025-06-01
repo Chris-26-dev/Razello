@@ -1,4 +1,4 @@
-# RazellBoard
+# Razello
 
 A simple, customizable project management tool inspired by Jira. Built with **Next.js**, **React**, **Tailwind CSS**, and **Hono.js**. Designed with love — especially for Razell. 💙
 
