@@ -1,45 +1,62 @@
 # Razello
 
-A simple, customizable project management tool inspired by Jira. Built with **Next.js**, **React**, **Tailwind CSS**, and **Hono.js**. Designed with love — especially for Razell. 💙
+A simple, customizable project management tool inspired by Jira. Built with **Next.js 14**, **React 18**, and **Tailwind CSS**, featuring a modular architecture and customizable UI using **Shadcn UI**, **Radix Primitives**, and **Zod** validation. This project includes robust authentication flows and reusable UI components. 
+
+Designed with love — especially for Razell. 💙
 
 ---
 
 ## ✨ Features
 
-- 🔐 Authentication (Sign up, Login, Logout)
-- ⚙️ Custom reusable components
-- 🌙 Dark mode-ready UI
-- 🎨 Tailwind CSS styling
-- 🚀 Built with Next.js App Router
-- ⚡ Backend routes powered by Hono.js
+- 🔐 Authentication system (Sign In / Sign Up)
+- 🎨 UI powered by Shadcn and Radix UI
+- ✅ Form validation using React Hook Form and Zod
+- 📦 Component-based architecture
+- 🧱 Built-in custom components (e.g. Dotted Separator)
+- 📊 Ready for features like charts, modals, sheets, etc.
 
 ---
 
-## 🔧 Tech Stack
+## 🧾 Technologies Used
 
-- [Next.js](https://nextjs.org/)
-- [React](https://react.dev/)
-- [Tailwind CSS](https://tailwindcss.com/)
-- [Hono.js](https://hono.dev/)
-- [TypeScript](https://www.typescriptlang.org/)
-- [Zod](https://zod.dev/) (for schema validation)
-- [Vercel](https://vercel.com/) (for deployment)
-
----
-
-## 📸 Screenshots
-
-> _Include screenshots of your login page, signup form, or dashboard UI if available._
+- **Framework**: [Next.js 14](https://nextjs.org/)
+- **UI**: [React 18](https://reactjs.org/), [Tailwind CSS](https://tailwindcss.com/)
+- **Components**: [Shadcn UI](https://ui.shadcn.com/), [Radix UI](https://www.radix-ui.com/)
+- **Forms**: [React Hook Form](https://react-hook-form.com/), [Zod](https://zod.dev/)
+- **Icons**: [Lucide React](https://lucide.dev/)
+- **Charts**: [Recharts](https://recharts.org/en-US/)
+- **Utils**: Class Variance Authority, clsx, date-fns
 
 ---
+
+## 📂 Project Structure
+
+src/
+├── app/
+│ └── auth/
+│ ├── sign-in/
+│ └── sign-up/
+├── features/
+│ └── auth/
+│ └── components/
+│ ├── sign-in-card.tsx
+│ └── sign-up-card.tsx
+├── components/
+│ ├── ui/
+│ │ ├── avatar.tsx
+│ │ ├── badge.tsx
+│ │ ├── button.tsx
+│ │ ├── ...
+│ │ └── textarea.tsx
+│ └── dotted-separator.tsx
 
 ## 🛠️ Getting Started
 
 ### 1. Clone the repository
 
 ```bash
-git clone https://github.com/your-username/razellboard.git
-cd razellboard
+git clone https://github.com/your-username/razello.git
+cd razello
 
 🚧 Upcoming Features
  -Boards and tasks
