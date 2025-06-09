@@ -83,6 +83,7 @@ export const MemberList = () => {
                             <div className="flex flex-col">
                                 <p className="text-sm font-medium">{member.name}</p>
                                 <p className="text-xs text-muted-foreground">{member.email}</p>
+                                {/* TODO: Add role */}
                             </div>
                             <DropdownMenu>
                                 <DropdownMenuTrigger asChild>
