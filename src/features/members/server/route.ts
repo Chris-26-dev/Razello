@@ -7,7 +7,6 @@ import { getMember } from "../utils";
 import { DATABASE_ID, MEMBERS_ID } from "@/config";
 import { Query } from "node-appwrite";
 import { MemberRole } from "../types";
-import { root } from "postcss";
 
 const app = new Hono()
     .get(

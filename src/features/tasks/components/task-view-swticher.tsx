@@ -1,10 +1,15 @@
+"use client";
+
 import { DottedSeparator } from "@/components/dotted-seperator"
 import { Button } from "@/components/ui/button"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { PlusIcon } from "lucide-react"
+import { useCreateTaskModal } from "../hooks/use-create-task-modal"
 
 export const TaskViewSwitcher = () => {
-    return(
+    const { open } = useCreateTaskModal();
+
+    return (
         <Tabs
             className="flex-1 w-full border rounded-lg"
         >
@@ -31,16 +36,17 @@ export const TaskViewSwitcher = () => {
                         </TabsTrigger>
                     </TabsList>
                     <Button
+                        onClick={open}
                         size="sm"
                         className="w-full lg:w-auto"
                     >
-                        <PlusIcon className="size-4 mr-2"/>
+                        <PlusIcon className="size-4 mr-2" />
                         New
                     </Button>
                 </div>
-                <DottedSeparator className="my-4"/>
+                <DottedSeparator className="my-4" />
                 Data filters
-                <DottedSeparator className="my-4"/>
+                <DottedSeparator className="my-4" />
                 <>
                     <TabsContent value="table" className="mt-0">
                         Data table

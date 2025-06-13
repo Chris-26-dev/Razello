@@ -165,7 +165,7 @@ const app = new Hono()
                 [
                     Query.equal("status", status),
                     Query.equal("workspaceId", workspaceId),
-                    Query.orderDesc("position"),
+                    Query.orderAsc("position"),
                     Query.limit(1),
                 ],
             );
@@ -184,7 +184,7 @@ const app = new Hono()
                     status,
                     workspaceId,
                     projectId,
-                    dueDate,
+                    dueDate: dueDate.toISOString(),
                     assigneeId,
                     position: newPosition
                 },
