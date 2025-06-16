@@ -38,17 +38,22 @@ interface CreateTaskFormProps {
     onCancel?: () => void,
     projectOptions: { id: string, name: string, imageUrl: string }[];
     memberOptions: { id: string, name: string }[];
+    //MY UPDATE 6/16/2025
+    defaultStatus?: TaskStatus;
 };
 
-export const CreateTaskForm = ({ onCancel, projectOptions, memberOptions }: CreateTaskFormProps) => {
+export const CreateTaskForm = ({ onCancel, projectOptions, memberOptions, defaultStatus }: CreateTaskFormProps) => {
     const workspaceId = useWorkspaceId();
     const router = useRouter();
     const { mutate, isPending } = useCreateTask();
     const taskClientSchema = createTaskSchema.omit({ workspaceId: true });
 
     const form = useForm<z.infer<typeof taskClientSchema>>({
-        resolver: zodResolver(taskClientSchema),
-        defaultValues: {},
+        resolver: zodResolver(taskClientSchema), 
+        defaultValues: {
+            //MY UPDATE 6/16/2025
+            status: defaultStatus ? defaultStatus : undefined,
+        },
     });
 
     const onSubmit = (values: z.infer<typeof taskClientSchema>) => {
@@ -156,7 +161,8 @@ export const CreateTaskForm = ({ onCancel, projectOptions, memberOptions }: Crea
                                             Status
                                         </FormLabel>
                                         <Select
-                                            defaultValue={field.value}
+                                            //MY UPDATE 6/16/2025
+                                            defaultValue={field.value || undefined}
                                             onValueChange={field.onChange}
                                         >
                                             <FormControl>
