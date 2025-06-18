@@ -11,33 +11,86 @@ import { z } from "zod";
 import { Workspace } from "../types";
 
 const app = new Hono()
-    .get("/", sessionMiddleware, async (c) => {
-        const user = c.get("user");
-        const databases = c.get("databases");
+    .get(
+        "/",
+        sessionMiddleware,
+        async (c) => {
+            const user = c.get("user");
+            const databases = c.get("databases");
 
-        const members = await databases.listDocuments(
-            DATABASE_ID,
-            MEMBERS_ID,
-            [Query.equal("userId", user.$id)]
-        );
+            const members = await databases.listDocuments(
+                DATABASE_ID,
+                MEMBERS_ID,
+                [Query.equal("userId", user.$id)]
+            );
 
-        if (members.total === 0) {
-            return c.json({ data: { documents: [], total: 0 } });
+            if (members.total === 0) {
+                return c.json({ data: { documents: [], total: 0 } });
+            }
+
+            const workspaceIds = members.documents.map((member) => member.workspaceId);
+
+            const workspaces = await databases.listDocuments(
+                DATABASE_ID,
+                WORKSPACES_ID,
+                [
+                    Query.orderDesc("$createdAt"),
+                    Query.contains("$id", workspaceIds)
+                ],
+            );
+
+            return c.json({ data: workspaces });
         }
+    )
+    .get(
+        "/:workspaceId",
+        sessionMiddleware,
+        async (c) => {
+            const user = c.get("user");
+            const databases = c.get("databases");
+            const { workspaceId } = c.req.param();
 
-        const workspaceIds = members.documents.map((member) => member.workspaceId);
+            const member = await getMember({
+                databases,
+                workspaceId,
+                userId: user.$id,
+            });
 
-        const workspaces = await databases.listDocuments(
-            DATABASE_ID,
-            WORKSPACES_ID,
-            [
-                Query.orderDesc("$createdAt"),
-                Query.contains("$id", workspaceIds)
-            ],
-        );
+            if (!member) {
+                return c.json({ error: "Unauthorized" }, 401);
+            }
 
-        return c.json({ data: workspaces });
-    })
+            const workspace = await databases.getDocument<Workspace>(
+                DATABASE_ID,
+                WORKSPACES_ID,
+                workspaceId,
+            );
+
+            return c.json({ data: workspace });
+        }
+    )
+    .get(
+        "/:workspaceId/info",
+        sessionMiddleware,
+        async (c) => {
+            const databases = c.get("databases");
+            const { workspaceId } = c.req.param();
+
+            const workspace = await databases.getDocument<Workspace>(
+                DATABASE_ID,
+                WORKSPACES_ID,
+                workspaceId,
+            );
+
+            return c.json({
+                data: {
+                    $id: workspace.$id,
+                    name: workspace.name,
+                    imageUrl: workspace.imageUrl
+                }
+            });
+        }
+    )
     .post(
         "/",
         zValidator("form", createWorkspaceSchema),
@@ -216,7 +269,7 @@ const app = new Hono()
             const { code } = c.req.valid("json");
 
             const databases = c.get("databases");
-            const user = c.get("user"); 
+            const user = c.get("user");
 
             const member = await getMember({
                 databases,
@@ -224,7 +277,7 @@ const app = new Hono()
                 userId: user.$id,
             });
 
-            if(member) {
+            if (member) {
                 return c.json({ error: "Already a member" }, 400);
             }
 
