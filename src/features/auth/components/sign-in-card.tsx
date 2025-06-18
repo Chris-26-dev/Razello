@@ -6,6 +6,7 @@ import { FaGithub } from "react-icons/fa";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
+import { signUpWithGithub, signUpWithGoogle } from "@/lib/oauth";
 import { DottedSeparator } from "@/components/dotted-seperator"
 import { Button } from "@/components/ui/button"
 import {
@@ -39,7 +40,7 @@ export const SignInCard = () => {
     });
 
     const onSubmit = (values: z.infer<typeof loginSchema>) => {
-        mutate({ json: values});
+        mutate({ json: values });
     };
 
     return (
@@ -87,7 +88,7 @@ export const SignInCard = () => {
                                 </FormItem>
                             )}
                         />
-                        
+
                         <Button disabled={isPending} size="lg" className="w-full">
                             Login
                         </Button>
@@ -99,6 +100,7 @@ export const SignInCard = () => {
             </div>
             <CardContent className="p-7 flex flex-col gap-y-4">
                 <Button
+                    onClick={() => signUpWithGoogle()}
                     disabled={isPending}
                     variant="secondary"
                     size="lg"
@@ -108,6 +110,7 @@ export const SignInCard = () => {
                     Login with Google
                 </Button>
                 <Button
+                    onClick={() => signUpWithGithub()}
                     disabled={isPending}
                     variant="secondary"
                     size="lg"
@@ -124,7 +127,7 @@ export const SignInCard = () => {
                 <p>
                     Don&apos;t have an account?
                     <Link href="/sign-up">
-                            <span className="text-blue-700">&nbsp;&nbsp;Sign Up</span>
+                        <span className="text-blue-700">&nbsp;&nbsp;Sign Up</span>
                     </Link>
                 </p>
             </CardContent>
