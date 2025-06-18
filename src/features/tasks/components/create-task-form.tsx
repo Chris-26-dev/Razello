@@ -4,7 +4,6 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 import { z } from "zod";
-import { useRef } from "react";
 import { createTaskSchema } from "../schemas";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
@@ -26,7 +25,6 @@ import { DottedSeparator } from "@/components/dotted-seperator";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useCreateTask } from "../api/use-create-task";
-import { useRouter } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { useWorkspaceId } from "@/features/workspaces/hooks/use-workspace-id";
 import { DatePicker } from "@/components/date-picker";
@@ -44,7 +42,6 @@ interface CreateTaskFormProps {
 
 export const CreateTaskForm = ({ onCancel, projectOptions, memberOptions, defaultStatus }: CreateTaskFormProps) => {
     const workspaceId = useWorkspaceId();
-    const router = useRouter();
     const { mutate, isPending } = useCreateTask();
     const taskClientSchema = createTaskSchema.omit({ workspaceId: true });
 

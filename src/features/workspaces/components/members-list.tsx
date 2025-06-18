@@ -73,7 +73,7 @@ export const MemberList = () => {
             </div>
             <CardContent className="p-7">
                 {data?.documents.map((member, index) => (
-                    <Fragment>
+                    <Fragment key={member.$id}>
                         <div className="flex items-center gap-2">
                             <MemberAvatar
                                 className="size-10"
