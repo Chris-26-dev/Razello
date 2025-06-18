@@ -77,7 +77,7 @@ export const DataCalendar = ({
         project: task.project,
         assignee: task.assignee,
         status: task.status,
-        id: task.id,
+        id: task.$id,
     }));
 
     const handleNavigate = (action: "PREV" | "NEXT" | "TODAY") => {
